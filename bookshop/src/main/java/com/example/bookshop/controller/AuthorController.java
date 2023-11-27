@@ -40,7 +40,7 @@ public class AuthorController {
         authorService.delete(firstName, lastName);
     }
 
-    @GetMapping("name/{firstName}-{lastName}")
+    @GetMapping("/name/{firstName}-{lastName}")
     public Author getByName(@PathVariable String firstName, @PathVariable String lastName) {
         return authorService.getByName(firstName, lastName);
     }
