@@ -33,5 +33,6 @@ public class AuthorService {
         authorRepository.delete(firstName, lastName);
     }
 
+    public Author getByName(String firstName, String lastName) { return authorRepository.getByName(firstName, lastName); }
 
 }
