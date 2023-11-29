@@ -1,5 +1,7 @@
 package com.example.bookshop.repository;
 
+import com.example.bookshop.exception.PublisherAlreadyExistsException;
+import com.example.bookshop.exception.PublisherNotFoundException;
 import com.example.bookshop.model.Publisher;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,9 @@ public class PublisherRepository {
     }
 
     public void add(Publisher publisher) {
+        if(publishers.stream().filter(elem -> elem.getName().equals(publisher.getName())).toList().size() > 0) {
+            throw new PublisherAlreadyExistsException("Publisher with the name " + publisher.getName() + " already exists in the database");
+        }
         Integer newId = publishers.size() + 1;
         publisher.setId(newId);
         publishers.add(publisher);
@@ -63,7 +68,7 @@ public class PublisherRepository {
     public List<Publisher> getByCity(String city) {
         List<Publisher> publisherList = publishers.stream().filter(elem -> elem.getCity().toUpperCase().equals(city.toUpperCase())).collect(Collectors.toList());
         if (publisherList.size() == 0) {
-            return publisherList;
+            throw new PublisherNotFoundException("No publishers were found in " + city + ".");
         }
         return publisherList;
     }
