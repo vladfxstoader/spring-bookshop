@@ -1,8 +1,16 @@
 package com.example.bookshop.model;
 
+import jakarta.persistence.*;
+
+@Table(name = "publisher")
+@Entity
 public class Publisher {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String city;
 
     public Publisher() {

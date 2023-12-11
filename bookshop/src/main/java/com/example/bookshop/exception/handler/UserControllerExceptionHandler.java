@@ -16,7 +16,7 @@ public class UserControllerExceptionHandler {
         return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({AuthorNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<String> userNotFound(UserNotFoundException ex) {
         return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }

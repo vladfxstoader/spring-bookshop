@@ -4,72 +4,44 @@ import com.example.bookshop.exception.PublisherAlreadyExistsException;
 import com.example.bookshop.exception.PublisherNotFoundException;
 import com.example.bookshop.model.Publisher;
 import jakarta.annotation.PostConstruct;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class PublisherRepository {
-    private List<Publisher> publishers = new ArrayList<>();
-
-    @PostConstruct
-    private void setUp() {
-        publishers.add(new Publisher(1, "Trei", "Bucuresti"));
-        publishers.add(new Publisher(2, "Corint", "Brasov"));
-    }
-
-    public List<Publisher> getAll() {
-        return publishers;
-    }
-
-    public void add(Publisher publisher) {
-        if(publishers.stream().filter(elem -> elem.getName().equals(publisher.getName())).toList().size() > 0) {
-            throw new PublisherAlreadyExistsException("Publisher with the name " + publisher.getName() + " already exists in the database");
-        }
-        Integer newId = publishers.size() + 1;
-        publisher.setId(newId);
-        publishers.add(publisher);
-    }
-
-    public void updateWithPut(Integer id, Publisher newPublisher) {
-        publishers.forEach(publisher -> {
-            if(publisher.getId() == id) {
-                publisher.setName(newPublisher.getName());
-                publisher.setCity(newPublisher.getCity());
-            }
-        });
-    }
-
-    public void updateWithPatch(Integer id, Publisher newPublisher) {
-        publishers.forEach(publisher -> {
-            if(publisher.getId() == id) {
-                if(newPublisher.getName() != null) {
-                    publisher.setName(newPublisher.getName());
-                }
-                if(newPublisher.getCity() != null) {
-                    publisher.setCity(newPublisher.getCity());
-                }
-            }
-        });
-    }
-
-    public void delete(String name) {
-        List<Publisher> newPublisherList = new ArrayList<>();
-        publishers.forEach(publisher -> {
-            if(!publisher.getName().equals(name)) {
-                newPublisherList.add(publisher);
-            }
-        });
-        publishers = newPublisherList;
-    }
-
-    public List<Publisher> getByCity(String city) {
-        List<Publisher> publisherList = publishers.stream().filter(elem -> elem.getCity().toUpperCase().equals(city.toUpperCase())).collect(Collectors.toList());
-        if (publisherList.size() == 0) {
-            throw new PublisherNotFoundException("No publishers were found in " + city + ".");
-        }
-        return publisherList;
-    }
+public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
+    Optional<Publisher> findByName(String name);
+    List<Publisher> findAllByCity(String city);
+//    public void updateWithPut(Integer id, Publisher newPublisher) {
+//        publishers.forEach(publisher -> {
+//            if(publisher.getId() == id) {
+//                publisher.setName(newPublisher.getName());
+//                publisher.setCity(newPublisher.getCity());
+//            }
+//        });
+//    }
+//
+//    public void updateWithPatch(Integer id, Publisher newPublisher) {
+//        publishers.forEach(publisher -> {
+//            if(publisher.getId() == id) {
+//                if(newPublisher.getName() != null) {
+//                    publisher.setName(newPublisher.getName());
+//                }
+//                if(newPublisher.getCity() != null) {
+//                    publisher.setCity(newPublisher.getCity());
+//                }
+//            }
+//        });
+//    }
+//    public List<Publisher> getByCity(String city) {
+//        List<Publisher> publisherList = publishers.stream().filter(elem -> elem.getCity().toUpperCase().equals(city.toUpperCase())).collect(Collectors.toList());
+//        if (publisherList.size() == 0) {
+//            throw new PublisherNotFoundException("No publishers were found in " + city + ".");
+//        }
+//        return publisherList;
+//    }
 }

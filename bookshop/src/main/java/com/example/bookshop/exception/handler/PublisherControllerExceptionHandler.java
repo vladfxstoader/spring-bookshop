@@ -16,7 +16,7 @@ public class PublisherControllerExceptionHandler {
         return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({AuthorNotFoundException.class})
+    @ExceptionHandler({PublisherNotFoundException.class})
     public ResponseEntity<String> publisherNotFound(PublisherNotFoundException ex) {
         return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }

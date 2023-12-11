@@ -22,22 +22,22 @@ public class PublisherController {
 
     @PostMapping
     public void add (@RequestBody Publisher publisher) {
-        publisherService.add(publisher);
+        publisherService.save(publisher);
     }
 
-    @PutMapping("/{id}")
-    public void updateWithPut(@PathVariable Integer id, @RequestBody Publisher publisher) {
-        publisherService.updateWithPut(id, publisher);
-    }
+//    @PutMapping("/{id}")
+//    public void updateWithPut(@PathVariable Integer id, @RequestBody Publisher publisher) {
+//        publisherService.updateWithPut(id, publisher);
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public void updateWithPatch(@PathVariable Integer id, @RequestBody Publisher publisher) {
+//        publisherService.updateWithPatch(id, publisher);
+//    }
 
-    @PatchMapping("/{id}")
-    public void updateWithPatch(@PathVariable Integer id, @RequestBody Publisher publisher) {
-        publisherService.updateWithPatch(id, publisher);
-    }
-
-    @DeleteMapping("/{name}")
-    public void delete(@PathVariable String name) {
-        publisherService.delete(name);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        publisherService.delete(id);
     }
 
     @GetMapping("/city")

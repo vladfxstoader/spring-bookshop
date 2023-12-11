@@ -1,9 +1,18 @@
 package com.example.bookshop.model;
 
+import jakarta.persistence.*;
+
+@Table(name = "author")
+@Entity
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "biography")
     private String biography;
 
     public Author() {

@@ -22,22 +22,22 @@ public class AuthorController {
 
     @PostMapping
     public void add(@RequestBody Author author) {
-        authorService.add(author);
+        authorService.save(author);
     }
 
-    @PutMapping("/{id}")
-    public void updateWithPut(@PathVariable Integer id, @RequestBody Author author) {
-        authorService.updateWithPut(id, author);
-    }
+//    @PutMapping("/{id}")
+//    public void updateWithPut(@PathVariable Integer id, @RequestBody Author author) {
+//        authorService.updateWithPut(id, author);
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public void updateWithPatch(@PathVariable Integer id, @RequestBody Author author) {
+//        authorService.updateWithPatch(id, author);
+//    }
 
-    @PatchMapping("/{id}")
-    public void updateWithPatch(@PathVariable Integer id, @RequestBody Author author) {
-        authorService.updateWithPatch(id, author);
-    }
-
-    @DeleteMapping("/{firstName}-{lastName}")
-    public void delete(@PathVariable String firstName, @PathVariable String lastName) {
-        authorService.delete(firstName, lastName);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        authorService.delete(id);
     }
 
     @GetMapping("/name/{firstName}-{lastName}")
