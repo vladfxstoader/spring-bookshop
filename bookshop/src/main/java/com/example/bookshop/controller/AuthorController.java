@@ -1,5 +1,6 @@
 package com.example.bookshop.controller;
 
+import com.example.bookshop.dto.AuthorDto;
 import com.example.bookshop.model.Author;
 import com.example.bookshop.service.AuthorService;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,13 @@ public class AuthorController {
     }
 
     @GetMapping
-    public List<Author> getAll() {
+    public List<AuthorDto> getAll() {
         return authorService.getAll();
     }
 
     @PostMapping
-    public void add(@RequestBody Author author) {
-        authorService.save(author);
+    public AuthorDto save(@RequestBody AuthorDto authorDto) {
+        return authorService.save(authorDto);
     }
 
 //    @PutMapping("/{id}")
@@ -41,7 +42,7 @@ public class AuthorController {
     }
 
     @GetMapping("/name/{firstName}-{lastName}")
-    public Author getByName(@PathVariable String firstName, @PathVariable String lastName) {
+    public AuthorDto getByName(@PathVariable String firstName, @PathVariable String lastName) {
         return authorService.getByName(firstName, lastName);
     }
 }

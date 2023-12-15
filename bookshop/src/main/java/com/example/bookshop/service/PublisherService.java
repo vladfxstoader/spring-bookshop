@@ -1,7 +1,9 @@
 package com.example.bookshop.service;
 
+import com.example.bookshop.dto.PublisherDto;
 import com.example.bookshop.exception.PublisherAlreadyExistsException;
 import com.example.bookshop.exception.PublisherNotFoundException;
+import com.example.bookshop.mapper.PublisherMapper;
 import com.example.bookshop.model.Publisher;
 import com.example.bookshop.repository.PublisherRepository;
 import org.springframework.stereotype.Service;
@@ -12,22 +14,26 @@ import java.util.Optional;
 @Service
 public class PublisherService {
     private PublisherRepository publisherRepository;
+    private PublisherMapper publisherMapper;
 
-    public PublisherService(PublisherRepository publisherRepository) {
+    public PublisherService(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
+        this.publisherMapper = publisherMapper;
         this.publisherRepository = publisherRepository;
     }
     
-    public List<Publisher> getAll() {
-        return publisherRepository.findAll();
+    public List<PublisherDto> getAll() {
+        List<Publisher> allPublishers = publisherRepository.findAll();
+        return publisherMapper.mapListToPublisherDto(allPublishers);
     }
     
-    public void save(Publisher publisher) {
-        Optional<Publisher> optionalPublisher = publisherRepository.findByName(publisher.getName());
+    public PublisherDto save(PublisherDto publisherDto) {
+        Optional<Publisher> optionalPublisher = publisherRepository.findByName(publisherDto.getName());
         if(!optionalPublisher.isPresent()) {
-            publisherRepository.save(publisher);
+            Publisher dbPublisher = publisherRepository.save(publisherMapper.map(publisherDto));
+            return publisherMapper.map(dbPublisher);
         }
         else {
-            throw new PublisherAlreadyExistsException("Publisher with name " + publisher.getName() + " already exists in the database");
+            throw new PublisherAlreadyExistsException("Publisher with name " + publisherDto.getName() + " already exists in the database");
         }
     }
     
@@ -43,12 +49,11 @@ public class PublisherService {
         publisherRepository.deleteById(id);
     }
 
-    public List<Publisher> getByCity(String city) {
+    public List<PublisherDto> getByCity(String city) {
         List<Publisher> publisherList = publisherRepository.findAllByCity(city);
-        System.out.println(publisherList.size());
         if(publisherList.size() == 0) {
             throw new PublisherNotFoundException("There are no publishers in " + city + ".");
         }
-        return publisherList;
+        return publisherMapper.mapListToPublisherDto(publisherList);
     }
 }

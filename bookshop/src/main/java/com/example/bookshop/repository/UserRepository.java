@@ -2,17 +2,20 @@ package com.example.bookshop.repository;
 
 import com.example.bookshop.exception.UserAlreadyExistsException;
 import com.example.bookshop.exception.UserNotFoundException;
+import com.example.bookshop.model.Publisher;
 import com.example.bookshop.model.User;
 import jakarta.annotation.PostConstruct;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class UserRepository {
-
+public interface UserRepository extends JpaRepository<User, Integer> {
+    Optional<User> findByEmail(String email);
 //    public void updateWithPut(Integer id, User newUser) {
 //        users.forEach(user -> {
 //            if(user.getId() == id) {
@@ -63,11 +66,4 @@ public class UserRepository {
 //        });
 //    }
 
-//    public User getByEmail(String email) {
-//        List<User> userList = users.stream().filter(elem -> elem.getEmail().equals(email)).collect(Collectors.toList());
-//        if(userList.size() == 0) {
-//            throw new UserNotFoundException("No user with email " + email + " found in the database.");
-//        }
-//        return userList.get(0);
-//    }
 }

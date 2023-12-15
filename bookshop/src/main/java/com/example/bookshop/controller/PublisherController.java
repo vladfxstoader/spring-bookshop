@@ -1,5 +1,6 @@
 package com.example.bookshop.controller;
 
+import com.example.bookshop.dto.PublisherDto;
 import com.example.bookshop.model.Publisher;
 import com.example.bookshop.service.PublisherService;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,13 @@ public class PublisherController {
     }
 
     @GetMapping
-    public List<Publisher> getAll() {
+    public List<PublisherDto> getAll() {
         return publisherService.getAll();
     }
 
     @PostMapping
-    public void add (@RequestBody Publisher publisher) {
-        publisherService.save(publisher);
+    public PublisherDto save (@RequestBody PublisherDto publisherDto) {
+        return publisherService.save(publisherDto);
     }
 
 //    @PutMapping("/{id}")
@@ -41,7 +42,7 @@ public class PublisherController {
     }
 
     @GetMapping("/city")
-    public List<Publisher> getByCity(@RequestParam String city) {
+    public List<PublisherDto> getByCity(@RequestParam String city) {
         return publisherService.getByCity(city);
     }
 
