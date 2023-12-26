@@ -1,8 +1,8 @@
 package com.example.bookshop.service;
 
 import com.example.bookshop.dto.PublisherDto;
-import com.example.bookshop.exception.PublisherAlreadyExistsException;
-import com.example.bookshop.exception.PublisherNotFoundException;
+import com.example.bookshop.exception.EntityAlreadyExistsException;
+import com.example.bookshop.exception.EntityNotFoundException;
 import com.example.bookshop.mapper.PublisherMapper;
 import com.example.bookshop.model.Publisher;
 import com.example.bookshop.repository.PublisherRepository;
@@ -33,18 +33,10 @@ public class PublisherService {
             return publisherMapper.map(dbPublisher);
         }
         else {
-            throw new PublisherAlreadyExistsException("Publisher with name " + publisherDto.getName() + " already exists in the database");
+            throw new EntityAlreadyExistsException("Publisher with name " + publisherDto.getName() + " already exists in the database");
         }
     }
-    
-//    public void updateWithPut(Integer id, Publisher publisher) {
-//        publisherRepository.updateWithPut(id, publisher);
-//    }
-//
-//    public void updateWithPatch(Integer id, Publisher publisher) {
-//        publisherRepository.updateWithPatch(id, publisher);
-//    }
-//
+
     public void delete(Integer id) {
         publisherRepository.deleteById(id);
     }
@@ -52,7 +44,7 @@ public class PublisherService {
     public List<PublisherDto> getByCity(String city) {
         List<Publisher> publisherList = publisherRepository.findAllByCity(city);
         if(publisherList.size() == 0) {
-            throw new PublisherNotFoundException("There are no publishers in " + city + ".");
+            throw new EntityNotFoundException("There are no publishers in " + city + ".");
         }
         return publisherMapper.mapListToPublisherDto(publisherList);
     }

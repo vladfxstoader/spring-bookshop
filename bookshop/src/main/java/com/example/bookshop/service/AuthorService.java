@@ -1,8 +1,8 @@
 package com.example.bookshop.service;
 
 import com.example.bookshop.dto.AuthorDto;
-import com.example.bookshop.exception.AuthorAlreadyExistsException;
-import com.example.bookshop.exception.AuthorNotFoundException;
+import com.example.bookshop.exception.EntityAlreadyExistsException;
+import com.example.bookshop.exception.EntityNotFoundException;
 import com.example.bookshop.mapper.AuthorMapper;
 import com.example.bookshop.model.Author;
 import com.example.bookshop.repository.AuthorRepository;
@@ -33,17 +33,9 @@ public class AuthorService {
             return authorMapper.map(dbAuthor);
         }
         else {
-            throw new AuthorAlreadyExistsException("Author named " + authorDto.getFirstName() + " " + authorDto.getLastName() + " already exists in the database.");
+            throw new EntityAlreadyExistsException("Author named " + authorDto.getFirstName() + " " + authorDto.getLastName() + " already exists in the database.");
         }
     }
-
-//    public void updateWithPut(Integer id, Author author) {
-//        authorRepository.updateWithPut(id, author);
-//    }
-//
-//    public void updateWithPatch(Integer id, Author author) {
-//        authorRepository.updateWithPatch(id, author);
-//    }
 
     public void delete(Integer id) {
         authorRepository.deleteById(id);
@@ -52,7 +44,7 @@ public class AuthorService {
     public AuthorDto getByName(String firstName, String lastName) {
         Optional<Author> optionalAuthor = authorRepository.findByFirstNameAndLastName(firstName, lastName);
         if(!optionalAuthor.isPresent()) {
-            throw new AuthorNotFoundException("Author named " + firstName + " " + lastName + " does not exist in the database.");
+            throw new EntityNotFoundException("Author named " + firstName + " " + lastName + " does not exist in the database.");
         }
         return authorMapper.map(optionalAuthor.get());
     }

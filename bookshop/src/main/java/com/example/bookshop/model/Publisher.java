@@ -2,6 +2,8 @@ package com.example.bookshop.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Table(name = "publisher")
 @Entity
 public class Publisher {
@@ -12,6 +14,9 @@ public class Publisher {
     private String name;
     @Column
     private String city;
+
+    @OneToMany(mappedBy = "publisher")
+    private List<Book> books;
 
     public Publisher() {
     }
