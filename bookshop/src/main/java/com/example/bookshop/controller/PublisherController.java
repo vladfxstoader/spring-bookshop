@@ -1,5 +1,6 @@
 package com.example.bookshop.controller;
 
+import com.example.bookshop.dto.BookDto;
 import com.example.bookshop.dto.PublisherDto;
 import com.example.bookshop.model.Publisher;
 import com.example.bookshop.service.PublisherService;
@@ -44,6 +45,11 @@ public class PublisherController {
     @GetMapping("/city")
     public List<PublisherDto> getByCity(@RequestParam String city) {
         return publisherService.getByCity(city);
+    }
+
+    @GetMapping("/getBooks/{name}")
+    public List<BookDto> getBooksByPublisher(@PathVariable String name) {
+        return publisherService.getAllBooksByPublisher(name);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.bookshop.service;
 
 import com.example.bookshop.dto.BookDto;
 import com.example.bookshop.exception.EntityAlreadyExistsException;
+import com.example.bookshop.exception.EntityNotFoundException;
 import com.example.bookshop.mapper.BookMapper;
 import com.example.bookshop.model.Book;
 import com.example.bookshop.repository.BookRepository;
@@ -38,5 +39,35 @@ public class BookService {
 
     public void delete(Integer id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<BookDto> findByGenre(String genre) {
+        List<Book> books = bookRepository.findAllByGenre(genre);
+        if(books.size() == 0) {
+            throw new EntityNotFoundException("No books found in database with genre " + genre);
+        }
+        else {
+            return bookMapper.mapListToBookDto(books);
+        }
+    }
+
+    public List<BookDto> getByTitle(String title) {
+        List<Book> books = bookRepository.findAllBooksByTitle(title);
+        if(books.size() == 0) {
+            throw new EntityNotFoundException("No books found in database with title " + title);
+        }
+        else {
+            return bookMapper.mapListToBookDto(books);
+        }
+    }
+
+    public List<BookDto> getByAuthor(String firstName, String lastName) {
+        List<Book> books = bookRepository.findAllByAuthors_FirstNameAndAuthors_LastName(firstName, lastName);
+        if(books.size() == 0) {
+            throw new EntityNotFoundException("No books found in database written by " + firstName + " " + lastName);
+        }
+        else {
+            return bookMapper.mapListToBookDto(books);
+        }
     }
 }

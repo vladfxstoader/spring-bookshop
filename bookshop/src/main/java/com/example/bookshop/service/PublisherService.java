@@ -1,8 +1,10 @@
 package com.example.bookshop.service;
 
+import com.example.bookshop.dto.BookDto;
 import com.example.bookshop.dto.PublisherDto;
 import com.example.bookshop.exception.EntityAlreadyExistsException;
 import com.example.bookshop.exception.EntityNotFoundException;
+import com.example.bookshop.mapper.BookMapper;
 import com.example.bookshop.mapper.PublisherMapper;
 import com.example.bookshop.model.Publisher;
 import com.example.bookshop.repository.PublisherRepository;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class PublisherService {
     private PublisherRepository publisherRepository;
     private PublisherMapper publisherMapper;
+    private BookMapper bookMapper;
 
-    public PublisherService(PublisherRepository publisherRepository, PublisherMapper publisherMapper) {
+    public PublisherService(PublisherRepository publisherRepository, PublisherMapper publisherMapper, BookMapper bookMapper) {
         this.publisherMapper = publisherMapper;
         this.publisherRepository = publisherRepository;
+        this.bookMapper = bookMapper;
     }
     
     public List<PublisherDto> getAll() {
@@ -47,5 +51,15 @@ public class PublisherService {
             throw new EntityNotFoundException("There are no publishers in " + city + ".");
         }
         return publisherMapper.mapListToPublisherDto(publisherList);
+    }
+
+    public List<BookDto> getAllBooksByPublisher(String name) {
+        Optional<Publisher> optionalPublisher = publisherRepository.findByName(name);
+        if(!optionalPublisher.isPresent()) {
+            throw new EntityNotFoundException("Publisher with name " + name + " does not exist in the database");
+        }
+        else {
+            return bookMapper.mapListToBookDto(optionalPublisher.get().getBooks());
+        }
     }
 }

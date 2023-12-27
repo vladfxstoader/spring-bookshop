@@ -29,4 +29,20 @@ public class BookController {
     public void delete(@PathVariable Integer id) {
         bookService.delete(id);
     }
+
+    @GetMapping("/genre/{genre}")
+    public List<BookDto> getByGenre(@PathVariable String genre) {
+        return bookService.findByGenre(genre);
+    }
+
+    @GetMapping("/title")
+    public List<BookDto> getAllBooksByTitle(@RequestBody String title) {
+        return bookService.getByTitle(title);
+    }
+
+    @GetMapping("/author")
+    public List<BookDto> getAllBooksByAuthor(@RequestBody String name) {
+        String[] names = name.split(" ");
+        return bookService.getByAuthor(names[0], names[1]);
+    }
 }

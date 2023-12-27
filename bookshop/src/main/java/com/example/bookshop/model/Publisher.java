@@ -18,6 +18,14 @@ public class Publisher {
     @OneToMany(mappedBy = "publisher")
     private List<Book> books;
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public Publisher() {
     }
 
