@@ -70,4 +70,14 @@ public class BookService {
             return bookMapper.mapListToBookDto(books);
         }
     }
+
+    public List<BookDto> getBooksWithQuantityBelow(Integer quantity) {
+        List<Book> books = bookRepository.findAllBooksWithQuantityBelow(quantity);
+        if(books.size() == 0) {
+            throw new EntityNotFoundException("There are no books in the database with the quantity under " + quantity + " pieces.");
+        }
+        else {
+            return bookMapper.mapListToBookDto(books);
+        }
+    }
 }

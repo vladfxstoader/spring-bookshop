@@ -45,4 +45,9 @@ public class BookController {
         String[] names = name.split(" ");
         return bookService.getByAuthor(names[0], names[1]);
     }
+
+    @GetMapping("/quantity/{quantity}")
+    public List<BookDto> getBooksWithQuantityBelow(@PathVariable Integer quantity) {
+        return bookService.getBooksWithQuantityBelow(quantity);
+    }
 }

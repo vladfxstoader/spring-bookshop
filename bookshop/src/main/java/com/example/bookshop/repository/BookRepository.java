@@ -15,4 +15,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findAllByAuthors_FirstNameAndAuthors_LastName(String firstName, String LastName);
     @Query(" from Book where upper(title) like %:title%")
     List<Book> findAllBooksByTitle(String title);
+    @Query(" from Book where quantity <= :quantity")
+    List<Book> findAllBooksWithQuantityBelow(Integer quantity);
 }
