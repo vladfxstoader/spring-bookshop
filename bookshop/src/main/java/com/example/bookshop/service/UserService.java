@@ -37,8 +37,14 @@ public class UserService {
         }
     }
 
-    public void delete(Integer id) {
-        userRepository.deleteById(id);
+    public void deleteByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if(!user.isPresent()) {
+            throw new EntityNotFoundException("User with email " + email + " does not exist in the database.");
+        }
+        else {
+            userRepository.deleteById(user.get().getId());
+        }
     }
 
     public UserDto getByEmail(String email) {

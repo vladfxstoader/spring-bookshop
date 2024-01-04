@@ -48,6 +48,12 @@ public class OrderService {
         List<Book> orderedBooks = order.getBooks();
         double totalPrice = orderedBooks.stream().mapToDouble(Book::getPrice).sum();
         order.setTotalPrice((float) totalPrice);
+        orderedBooks.forEach(book -> {
+            System.out.println(book.getTitle() + " " + book.getQuantity());
+            book.setQuantity(book.getQuantity() - 1);
+            System.out.println(book.getTitle() + " " + book.getQuantity());
+            bookRepository.save(book);
+        });
         Order dbOrder = orderRepository.save(order);
         return dbOrder;
     }

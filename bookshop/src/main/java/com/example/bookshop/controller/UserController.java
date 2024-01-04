@@ -37,9 +37,9 @@ public class UserController {
 //        userService.updateWithPatch(id, user);
 //    }
 //
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        userService.delete(id);
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody String email) {
+        userService.deleteByEmail(email);
     }
 
     @GetMapping("/email")
