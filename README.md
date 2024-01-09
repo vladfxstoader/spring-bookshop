@@ -8,8 +8,6 @@ Welcome to the Online Bookshop System! This system is designed to provide a seam
 3. [Minimum Viable Product (MVP) Features](#minimum-viable-product-mvp-features)
 4. [Getting Started](#getting-started)
 5. [API Documentation](#api-documentation)
-6. [Contributing](#contributing)
-7. [License](#license)
 
 ## Business Requirements
 ### 1. Search Books
