@@ -37,20 +37,6 @@ public class BookService {
         }
     }
 
-    public BookDto updateQuantityPlusOne(BookDto bookDto) {
-        Book book = bookMapper.map(bookDto);
-        book.setQuantity(book.getQuantity() + 1);
-        bookRepository.save(book);
-        return bookMapper.map(book);
-    }
-
-    public BookDto updateQuantityMinusOne(BookDto bookDto) {
-        Book book = bookMapper.map(bookDto);
-        book.setQuantity(book.getQuantity() - 1);
-        bookRepository.save(book);
-        return bookMapper.map(book);
-    }
-
     public void delete(Integer id) {
         bookRepository.deleteById(id);
     }
