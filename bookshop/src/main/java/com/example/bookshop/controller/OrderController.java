@@ -28,7 +28,7 @@ public class OrderController {
 
     @Operation(summary = "Place a new order")
     @PostMapping
-    public Order save(@RequestBody OrderDto orderDto) {
+    public OrderDto save(@RequestBody OrderDto orderDto) {
         return orderService.save(orderDto);
     }
 

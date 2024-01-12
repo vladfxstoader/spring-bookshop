@@ -42,7 +42,7 @@ public class OrderService {
         return allOrders;
     }
 
-    public Order save(OrderDto orderDto) {
+    public OrderDto save(OrderDto orderDto) {
         orderDto.setDate(new Date(System.currentTimeMillis()));
         Order order = orderMapper.map(orderDto, userRepository, bookRepository);
         List<Book> orderedBooks = order.getBooks();
@@ -55,7 +55,8 @@ public class OrderService {
             bookRepository.save(book);
         });
         Order dbOrder = orderRepository.save(order);
-        return dbOrder;
+        OrderDto returnedOrder = orderMapper.map(dbOrder);
+        return returnedOrder;
     }
 
     public void delete(Integer id) {

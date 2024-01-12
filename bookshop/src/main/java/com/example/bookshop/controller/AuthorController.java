@@ -31,16 +31,6 @@ public class AuthorController {
         return authorService.save(authorDto);
     }
 
-//    @PutMapping("/{id}")
-//    public void updateWithPut(@PathVariable Integer id, @RequestBody Author author) {
-//        authorService.updateWithPut(id, author);
-//    }
-//
-//    @PatchMapping("/{id}")
-//    public void updateWithPatch(@PathVariable Integer id, @RequestBody Author author) {
-//        authorService.updateWithPatch(id, author);
-//    }
-
     @Operation(summary = "Delete an author by id")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
