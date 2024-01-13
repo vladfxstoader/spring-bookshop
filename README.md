@@ -10,31 +10,57 @@ Welcome to the Online Bookshop System! This system is designed to provide a seam
 5. [API Documentation](#api-documentation)
 
 ## Business Requirements 📋
-### 1. Search Books 🔍
-   - **Author-based Book Search:** Users can search for books based on the author's name.
-   - **Title-based Book Search:** Users can find books containing specific words in their title.
-   - **Genre-based Book Search:** Users can explore books based on their genre.
-   - **Publisher-based Book Search:** Users can find all books published by a specific publisher.
-   - **Critical Quantity Book Search:** Users can identify books with stock quantities below a critical threshold.
+### Search Books 🔍
+   - **1. Author-based Book Search:** Users can search for books based on the author's name.
+   - **2. Title-based Book Search:** Users can find books containing specific words in their title.
+   - **3. Genre-based Book Search:** Users can explore books based on their genre.
+   - **4. Publisher-based Book Search:** Users can find all books published by a specific publisher.
+   - **5. Critical Quantity Book Search:** Users can identify books with stock quantities below a critical threshold.
 
-### 2. Order Management 🛍️
-   - **Place an Order:** Users can place orders for selected books.
-   - **View Order History:** Users can access their order history, including order date, book titles, and quantities.
+### Order Management 🛍️
+   - **6. Place an Order:** Users can place orders for selected books.
+   - **7. View Order History:** Users can access their order history, including order date, book titles, and quantities.
 
-### 3. Admin Features 👩‍💼
-   - **Automatic Stock Quantity Update:** The system automatically updates stock quantity after an order is placed.
-   - **Admin Publisher Monitoring:** Administrators can view all publishers operating in a specific city.
+### Admin Features 👩‍💼
+   - **8. Automatic Stock Quantity Update:** The system automatically updates stock quantity after an order is placed.
+   - **9. Admin Publisher Monitoring:** Administrators can view all publishers operating in a specific city.
 
-### 4. User Account Management 👤
-   - **User Account Deletion:** Users can delete their accounts from the system.
+### User Account Management 👤
+   - **10. User Account Deletion:** Users can delete their accounts from the system.
 
 ## Entities and Relationships 🤝
+
+### Entities 🏛️
+
 - **Publisher:** Represents entities responsible for publishing books.
 - **Author:** Represents creative minds behind the books.
 - **Book:** Central entity encapsulating essential book details.
 - **Address:** Captures geographical details associated with users.
 - **User:** Enables personalized experiences for customers.
 - **Order:** Facilitates the order process with user details and ordered books.
+
+### Relationships 🌐
+
+- **Address - User (One-to-One)**
+   - An address is associated with only one user.
+   - A user has only one address.
+
+- **Publisher-Book (One-to-Many)**
+   - A publisher can publish multiple books.
+   - A book is published by only one publisher.
+
+- **Author - Book (Many-to-Many)**
+   - An author can write multiple books.
+   - A book can have multiple authors.
+
+- **User - Order (One-to-Many)**
+   - A user can have multiple orders.
+   - Each order belongs to only one user.
+
+- **Book - Order (Many-to-Many)**
+   - A book can be ordered multiple times.
+   - An order can contain multiple books.
+
 
 ## Minimum Viable Product (MVP) Features 💼
 1. **User Book Search Endpoint:** REST endpoint for users to search books by author.
